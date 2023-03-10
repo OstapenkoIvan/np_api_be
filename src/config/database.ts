@@ -1,12 +1,12 @@
-import * as dotenv from "dotenv";
-dotenv.config();
+import "dotenv/config";
 import mongoose from "mongoose";
 
-const { DB_CONTACTS } = process.env;
+const { MONGO_URI } = process.env;
+console.log("mongouri", MONGO_URI);
 
 export default async function connectDB() {
   try {
-    DB_CONTACTS && (await mongoose.connect(DB_CONTACTS));
+    MONGO_URI && (await mongoose.connect(MONGO_URI));
 
     console.log("Database connection successful");
   } catch (err) {

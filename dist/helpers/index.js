@@ -35,40 +35,44 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-require("dotenv/config");
-var mongoose_1 = __importDefault(require("mongoose"));
-var MONGO_URI = process.env.MONGO_URI;
-console.log("mongouri", MONGO_URI);
-function connectDB() {
-    return __awaiter(this, void 0, void 0, function () {
-        var _a, err_1;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0:
-                    _b.trys.push([0, 3, , 4]);
-                    _a = MONGO_URI;
-                    if (!_a) return [3 /*break*/, 2];
-                    return [4 /*yield*/, mongoose_1.default.connect(MONGO_URI)];
-                case 1:
-                    _a = (_b.sent());
-                    _b.label = 2;
-                case 2:
-                    _a;
-                    console.log("Database connection successful");
-                    return [3 /*break*/, 4];
-                case 3:
-                    err_1 = _b.sent();
-                    console.error(err_1);
-                    process.exit(1);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
-            }
-        });
-    });
-}
-exports.default = connectDB;
-//# sourceMappingURL=database.js.map
+exports.helpers = exports.Helpers = void 0;
+var Helpers = /** @class */ (function () {
+    function Helpers() {
+    }
+    Helpers.prototype.errorHandler = function (_a) {
+        var status = _a.status, message = _a.message;
+        var error = new Error(message);
+        error.status = status;
+        return error;
+    };
+    Helpers.prototype.controllerWrapper = function (controller) {
+        var _this = this;
+        var func = function (req, res, next) { return __awaiter(_this, void 0, void 0, function () {
+            var error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, controller(req, res, next)];
+                    case 1:
+                        _a.sent();
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_1 = _a.sent();
+                        // eslint-disable-next-line no-console
+                        console.log("ControllerHandler Error", error_1);
+                        next(error_1);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        }); };
+        return func;
+    };
+    return Helpers;
+}());
+exports.Helpers = Helpers;
+exports.helpers = new Helpers();
+// TODO add wrapper here
+//# sourceMappingURL=index.js.map
