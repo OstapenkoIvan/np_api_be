@@ -1,18 +1,20 @@
 export interface ITrack {
-  _id: string;
-  number: number;
-  expectedDeliveryDate: Date;
-  actualDeliverDate?: Date;
-  updateDate?: Date;
-  firstDay: Date;
-  statusCode: number;
-  status: string;
-  recipientAddress: string;
-  senderAddress: string;
+  _id?: string;
+  Number: number;
+  ScheduledDeliveryDate: Date;
+  ActualDeliveryDate?: Date;
+  TrackingUpdateDate?: Date;
+  DateCreated: Date;
+  StatusCode: number;
+  Status: string;
+  WarehouseRecipient: string;
+  WarehouseSender: string;
+  WarehouseRecipientAddress: string;
+  WarehouseSenderAddress: string;
 }
 
 export interface ITrackList {
-  tracks: ITrack[];
+  data: ITrack[];
 }
 
 export interface IWarehouse {
@@ -25,4 +27,7 @@ export interface IWarehouse {
 
 export interface IWarehouseList {
   data: IWarehouse[];
+}
+export interface ITrackNumber {
+  number: number;
 }

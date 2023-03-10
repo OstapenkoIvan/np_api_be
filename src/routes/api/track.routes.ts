@@ -1,20 +1,20 @@
 import { Router } from "express";
 
-import { todoController, TodoController } from "../../controllers";
+import { trackingController, TrackingController } from "../../controllers";
 import middlewares, { Middlewares } from "../../middleware";
-import { todoSchema, TodoSchema } from "../../schemas";
+import { trackSchema, TrackSchema } from "../../schemas";
 import { helpers, Helpers } from "../../helpers";
 
 export default class TodoRoutes {
   public router: Router;
 
-  private controller: TodoController = todoController;
+  private controller: TrackingController = trackingController;
 
   private middleware: Middlewares = middlewares;
 
   private helpers: Helpers = helpers;
 
-  private todoSchema: TodoSchema = todoSchema;
+  private trackSchema: TrackSchema = trackSchema;
 
   constructor() {
     this.router = Router();
@@ -24,23 +24,14 @@ export default class TodoRoutes {
   protected registerRoutes() {
     this.router.get(
       "/",
-      this.helpers.controllerWrapper(this.middleware.authorize),
-      this.helpers.controllerWrapper(this.controller.getAllController)
+      this.helpers.controllerWrapper(this.controller.getAllTracksController)
     );
 
-    // this.router.post(
-    //   '/',
-    //   this.helpers.controllerWrapper(this.middleware.authorize),
-    //   this.middleware.validate(this.todoSchema.editColumnSchema),
-    //   this.helpers.controllerWrapper(this.controller.addColumnController)
-    // );
-
-    // this.router.post(
-    //   '/:columnId',
-    //   this.helpers.controllerWrapper(this.middleware.authorize),
-    //   this.middleware.validate(this.todoSchema.editTodoSchema),
-    //   this.middleware.validateId(),
-    //   this.helpers.controllerWrapper(this.controller.addTodoController)
-    // );
+    this.router.post(
+      "/",
+      this.middleware.validate(this.trackSchema.trackNumberSchema),
+      this.helpers.controllerWrapper(this.middleware.checkExisting),
+      this.helpers.controllerWrapper(this.controller.getTrackController)
+    );
   }
 }

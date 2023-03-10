@@ -1,13 +1,13 @@
 import Joi from "joi";
 
-export class TodoSchema {
-  editColumnSchema = Joi.object({
+export class TrackSchema {
+  trackNumberSchema = Joi.object({
     desc: Joi.string()
+      .length(14)
+      .pattern(/[0-9]+/i)
       .required()
-      .messages({ message: "Description is required" }),
+      .messages({ message: "Number is required" }),
   });
 }
 
-export const todoSchema = new TodoSchema();
-
-// TODO add schema here
+export const trackSchema = new TrackSchema();

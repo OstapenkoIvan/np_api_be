@@ -1,59 +1,26 @@
 import "dotenv/config";
 import { Request, Response, NextFunction, RequestHandler } from "express";
 import Joi from "joi";
-import { isValidObjectId } from "mongoose";
 
 import { helpers, Helpers } from "../helpers";
-import { User } from "../models";
-import { IUser, IRegister, ILogin } from "../types/user.type";
+import { Track } from "../models";
+import { ITrackNumber, ITrack } from "../types";
 
 export class Middlewares {
   private static helpers: Helpers = helpers;
 
-  validNewUser() {
-    const func: RequestHandler = async (req, res, next) => {
-      const { name, email } = req.body as IRegister;
+  async checkExisting(req: Request, res: Response, next: NextFunction) {
+    const { number } = req.body as ITrackNumber;
 
-      const user: IUser = await User.findOne({ $or: [{ email }, { name }] });
+    const track: ITrack | null = await Track.findOne({
+      "tracks.number": number,
+    });
 
-      if (user) {
-        throw Middlewares.helpers.errorHandler({
-          status: 409,
-          message: "User already exist",
-        });
-      }
+    if (track) {
+      req.track = track;
+    }
 
-      next();
-    };
-    return func;
-  }
-
-  validExistUser() {
-    const func: RequestHandler = async (req, res, next) => {
-      const { data } = req.body as ILogin;
-
-      const emailReg = /\S+@\S+\.\S+/;
-
-      let user: IUser;
-
-      if (emailReg.test(data)) {
-        user = await User.findOne({ email: data });
-      } else {
-        user = await User.findOne({ name: data });
-      }
-
-      if (!user) {
-        throw Middlewares.helpers.errorHandler({
-          status: 401,
-          message: "Email or password is wrong",
-        });
-      }
-
-      req.user = user;
-
-      next();
-    };
-    return func;
+    next();
   }
 
   validate(schema: Joi.ObjectSchema<any>) {
@@ -74,5 +41,3 @@ export class Middlewares {
 
 const middlewares = new Middlewares();
 export default middlewares;
-
-// TODO add tnn validation middleware

@@ -3,39 +3,47 @@ import { ITrack, ITrackList } from "../types";
 
 const trackSchema = new Schema<ITrack>(
   {
-    number: {
+    Number: {
       type: Number,
       min: 10000000000000,
       max: 99999999999999,
       required: [true, "Track cant be empty"],
     },
-    expectedDeliveryDate: {
+    ScheduledDeliveryDate: {
       type: Date,
       required: [true, "Delivery date cant be empty"],
     },
-    actualDeliverDate: {
+    ActualDeliveryDate: {
       type: Date,
     },
-    updateDate: {
+    TrackingUpdateDate: {
       type: Date,
     },
-    firstDay: {
+    DateCreated: {
       type: Date,
       required: [true, "First day date cant be empty"],
     },
-    statusCode: {
+    StatusCode: {
       type: Number,
       required: [true, "Status code cant be empty"],
     },
-    status: {
+    Status: {
       type: String,
       required: [true, "Status cant be empty"],
     },
-    recipientAddress: {
+    WarehouseRecipient: {
+      type: String,
+      required: [true, "WarehouseRecipient address cant be empty"],
+    },
+    WarehouseSender: {
+      type: String,
+      required: [true, "WarehouseSender address cant be empty"],
+    },
+    WarehouseRecipientAddress: {
       type: String,
       required: [true, "Recipient address cant be empty"],
     },
-    senderAddress: {
+    WarehouseSenderAddress: {
       type: String,
       required: [true, "Sender address cant be empty"],
     },
@@ -45,7 +53,7 @@ const trackSchema = new Schema<ITrack>(
 
 const tracksSchema = new Schema<ITrackList>(
   {
-    tracks: {
+    data: {
       type: [trackSchema],
     },
   },
