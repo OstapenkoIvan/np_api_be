@@ -3,15 +3,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var user_route_1 = __importDefault(require("./api/user.route"));
-var todos_route_1 = __importDefault(require("./api/todos.route"));
+var track_routes_1 = __importDefault(require("./api/track.routes"));
+// import WarehouseRoutes from "./api/warehouse.routes";
 var AppRouter = /** @class */ (function () {
     function AppRouter(app) {
         this.app = app;
     }
     AppRouter.prototype.init = function () {
-        this.app.use("/api/user", new user_route_1.default().router);
-        this.app.use("/api/todos", new todos_route_1.default().router);
+        this.app.use("/api/tracking", new track_routes_1.default().router);
+        // this.app.use("/api/warehouses", new WarehouseRoutes().router);
         this.app.use((function (req, res) {
             res.status(404).json({
                 status: "error",
@@ -30,5 +30,4 @@ var AppRouter = /** @class */ (function () {
     return AppRouter;
 }());
 exports.default = AppRouter;
-// TODO import routes, create main route
 //# sourceMappingURL=index.js.map

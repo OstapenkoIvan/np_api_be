@@ -35,51 +35,74 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Middlewares = void 0;
+exports.TrackingService = void 0;
 require("dotenv/config");
-var helpers_1 = require("../helpers");
+var axios_1 = __importDefault(require("axios"));
 var models_1 = require("../models");
-var Middlewares = /** @class */ (function () {
-    function Middlewares() {
+var NP_URI = process.env.NP_URI;
+var TrackingService = /** @class */ (function () {
+    function TrackingService() {
     }
-    Middlewares.prototype.checkExisting = function (req, res, next) {
+    TrackingService.getTrack = function (number) {
         return __awaiter(this, void 0, void 0, function () {
-            var number, track;
+            var body, data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        number = req.body.number;
-                        return [4 /*yield*/, models_1.Track.findOne({
-                                "tracks.number": number,
-                            })];
+                        body = {
+                            apiKey: "",
+                            modelName: "TrackingDocument",
+                            calledMethod: "getStatusDocuments",
+                            methodProperties: {
+                                Documents: [
+                                    {
+                                        DocumentNumber: number,
+                                        Phone: "380600000000",
+                                    },
+                                ],
+                            },
+                        };
+                        return [4 /*yield*/, axios_1.default.post(NP_URI, body)];
                     case 1:
-                        track = _a.sent();
-                        if (track) {
-                            req.track = track;
-                        }
-                        next();
-                        return [2 /*return*/];
+                        data = (_a.sent()).data;
+                        return [2 /*return*/, data];
                 }
             });
         });
     };
-    Middlewares.prototype.validate = function (schema) {
-        var func = function (req, res, next) {
-            var error = schema.validate(req.body).error;
-            if (error)
-                throw Middlewares.helpers.errorHandler({
-                    status: 400,
-                    message: error.message,
-                });
-            next();
-        };
-        return func;
+    TrackingService.addTrack = function (trackData) {
+        return __awaiter(this, void 0, void 0, function () {
+            var newTrack;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, models_1.Track.create(trackData)];
+                    case 1:
+                        newTrack = _a.sent();
+                        return [2 /*return*/, newTrack];
+                }
+            });
+        });
     };
-    Middlewares.helpers = helpers_1.helpers;
-    return Middlewares;
+    TrackingService.getAllTracks = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var allTracks;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, models_1.Track.find()];
+                    case 1:
+                        allTracks = _a.sent();
+                        return [2 /*return*/, allTracks];
+                }
+            });
+        });
+    };
+    return TrackingService;
 }());
-exports.Middlewares = Middlewares;
-var middlewares = new Middlewares();
-exports.default = middlewares;
-//# sourceMappingURL=index.js.map
+exports.TrackingService = TrackingService;
+var trackingService = new TrackingService();
+exports.default = trackingService;
+//# sourceMappingURL=tracking.services.js.map

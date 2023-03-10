@@ -14,7 +14,7 @@ class AppRouter {
       res.status(404).json({
         status: "error",
         code: 404,
-        message: "Use api on routes: /api/todos || /api/user",
+        message: "Use api on routes: /api/tracking || /api/warehouses",
       });
     }) as RequestHandler);
 
@@ -29,5 +29,3 @@ class AppRouter {
 }
 
 export default AppRouter;
-
-// TODO import routes, create main route

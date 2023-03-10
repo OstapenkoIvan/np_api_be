@@ -3,19 +3,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.todoSchema = exports.TodoSchema = void 0;
+exports.trackSchema = exports.TrackSchema = void 0;
 var joi_1 = __importDefault(require("joi"));
-var TodoSchema = /** @class */ (function () {
-    function TodoSchema() {
-        this.editColumnSchema = joi_1.default.object({
+var TrackSchema = /** @class */ (function () {
+    function TrackSchema() {
+        this.trackNumberSchema = joi_1.default.object({
             desc: joi_1.default.string()
+                .length(14)
+                .pattern(/[0-9]+/i)
                 .required()
-                .messages({ message: "Description is required" }),
+                .messages({ message: "Number is required" }),
         });
     }
-    return TodoSchema;
+    return TrackSchema;
 }());
-exports.TodoSchema = TodoSchema;
-exports.todoSchema = new TodoSchema();
-// TODO add schema here
+exports.TrackSchema = TrackSchema;
+exports.trackSchema = new TrackSchema();
 //# sourceMappingURL=tnn.schema.js.map
