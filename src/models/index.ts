@@ -1,1 +1,1 @@
-export { default as Track } from "./track.model";
+export { default as Track } from "./tracking.model";

@@ -13,7 +13,7 @@ export class Middlewares {
     const { number } = req.body as ITrackNumber;
 
     const track: ITrack | null = await Track.findOne({
-      "tracks.number": number,
+      Number: number,
     });
 
     if (track) {

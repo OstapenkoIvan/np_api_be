@@ -1,4 +1,3 @@
-import { ITrackList } from "./../types/np.types";
 import "dotenv/config";
 import axios from "axios";
 
@@ -22,6 +21,7 @@ export class TrackingService {
         ],
       },
     };
+
     const { data } = await axios.post(NP_URI, body);
 
     return data;
@@ -34,7 +34,7 @@ export class TrackingService {
   }
 
   static async getAllTracks() {
-    const allTracks = await Track.find();
+    const allTracks = await Track.find().limit(10).sort({ createdAt: -1 });
 
     return allTracks;
   }

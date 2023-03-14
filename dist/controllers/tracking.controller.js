@@ -62,17 +62,18 @@ var TrackingController = /** @class */ (function (_super) {
     }
     TrackingController.prototype.getTrackController = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var data, number, newTrack, Number_1, ScheduledDeliveryDate, ActualDeliveryDate, TrackingUpdateDate, DateCreated, StatusCode, Status, WarehouseRecipient, WarehouseSender, WarehouseRecipientAddress, WarehouseSenderAddress;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var data, number, newTrack, _a, Number_1, ScheduledDeliveryDate, ActualDeliveryDate, TrackingUpdateDate, DateCreated, StatusCode, Status, WarehouseRecipient, WarehouseSender, WarehouseRecipientAddress, WarehouseSenderAddress;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         data = req.track;
                         number = req.body.number;
                         if (!!data) return [3 /*break*/, 3];
                         return [4 /*yield*/, TrackingController.getTrack(number)];
                     case 1:
-                        newTrack = _a.sent();
-                        Number_1 = newTrack.Number, ScheduledDeliveryDate = newTrack.ScheduledDeliveryDate, ActualDeliveryDate = newTrack.ActualDeliveryDate, TrackingUpdateDate = newTrack.TrackingUpdateDate, DateCreated = newTrack.DateCreated, StatusCode = newTrack.StatusCode, Status = newTrack.Status, WarehouseRecipient = newTrack.WarehouseRecipient, WarehouseSender = newTrack.WarehouseSender, WarehouseRecipientAddress = newTrack.WarehouseRecipientAddress, WarehouseSenderAddress = newTrack.WarehouseSenderAddress;
+                        newTrack = _b.sent();
+                        if (!newTrack.success) return [3 /*break*/, 3];
+                        _a = newTrack.data[0], Number_1 = _a.Number, ScheduledDeliveryDate = _a.ScheduledDeliveryDate, ActualDeliveryDate = _a.ActualDeliveryDate, TrackingUpdateDate = _a.TrackingUpdateDate, DateCreated = _a.DateCreated, StatusCode = _a.StatusCode, Status = _a.Status, WarehouseRecipient = _a.WarehouseRecipient, WarehouseSender = _a.WarehouseSender, WarehouseRecipientAddress = _a.WarehouseRecipientAddress, WarehouseSenderAddress = _a.WarehouseSenderAddress;
                         return [4 /*yield*/, TrackingController.addTrack({
                                 Number: Number_1,
                                 ScheduledDeliveryDate: ScheduledDeliveryDate,
@@ -87,8 +88,8 @@ var TrackingController = /** @class */ (function (_super) {
                                 WarehouseSenderAddress: WarehouseSenderAddress,
                             })];
                     case 2:
-                        data = _a.sent();
-                        _a.label = 3;
+                        data = _b.sent();
+                        _b.label = 3;
                     case 3:
                         res.status(200).json({
                             status: "success",

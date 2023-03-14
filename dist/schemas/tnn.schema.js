@@ -8,7 +8,7 @@ var joi_1 = __importDefault(require("joi"));
 var TrackSchema = /** @class */ (function () {
     function TrackSchema() {
         this.trackNumberSchema = joi_1.default.object({
-            desc: joi_1.default.string()
+            number: joi_1.default.string()
                 .length(14)
                 .pattern(/[0-9]+/i)
                 .required()

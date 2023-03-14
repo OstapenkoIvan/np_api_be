@@ -2,22 +2,22 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 
-// import AppRouter from "./routes";
+import AppRouter from "./routes";
 import connectDB from "./config/database";
 
 const { PORT } = process.env;
-console.log("port", PORT);
+
 const app = express();
-// const router = new AppRouter(app);
+const router = new AppRouter(app);
 
 connectDB();
 
-app.set("port", PORT || 3000);
+app.set("port", PORT || 4200);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// router.init();
+router.init();
 
 const port = app.get("port");
 // eslint-disable-next-line no-console

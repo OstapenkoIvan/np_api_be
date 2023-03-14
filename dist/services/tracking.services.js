@@ -92,7 +92,7 @@ var TrackingService = /** @class */ (function () {
             var allTracks;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, models_1.Track.find()];
+                    case 0: return [4 /*yield*/, models_1.Track.find().limit(10).sort({ createdAt: -1 })];
                     case 1:
                         allTracks = _a.sent();
                         return [2 /*return*/, allTracks];

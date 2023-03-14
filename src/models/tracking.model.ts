@@ -11,7 +11,6 @@ const trackSchema = new Schema<ITrack>(
     },
     ScheduledDeliveryDate: {
       type: Date,
-      required: [true, "Delivery date cant be empty"],
     },
     ActualDeliveryDate: {
       type: Date,
@@ -21,48 +20,29 @@ const trackSchema = new Schema<ITrack>(
     },
     DateCreated: {
       type: Date,
-      required: [true, "First day date cant be empty"],
     },
     StatusCode: {
       type: Number,
-      required: [true, "Status code cant be empty"],
     },
     Status: {
       type: String,
-      required: [true, "Status cant be empty"],
     },
     WarehouseRecipient: {
       type: String,
-      required: [true, "WarehouseRecipient address cant be empty"],
     },
     WarehouseSender: {
       type: String,
-      required: [true, "WarehouseSender address cant be empty"],
     },
     WarehouseRecipientAddress: {
       type: String,
-      required: [true, "Recipient address cant be empty"],
     },
     WarehouseSenderAddress: {
       type: String,
-      required: [true, "Sender address cant be empty"],
     },
   },
   { timestamps: true }
 );
 
-const tracksSchema = new Schema<ITrackList>(
-  {
-    data: {
-      type: [trackSchema],
-    },
-  },
-  {
-    versionKey: false,
-    timestamps: true,
-  }
-);
-
-const Track = model("tracks", tracksSchema);
+const Track = model("tracks", trackSchema);
 
 export default Track;

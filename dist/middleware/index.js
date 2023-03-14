@@ -51,7 +51,7 @@ var Middlewares = /** @class */ (function () {
                     case 0:
                         number = req.body.number;
                         return [4 /*yield*/, models_1.Track.findOne({
-                                "tracks.number": number,
+                                Number: number,
                             })];
                     case 1:
                         track = _a.sent();

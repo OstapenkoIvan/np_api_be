@@ -15,33 +15,36 @@ export class TrackingController extends TrackingService {
 
     if (!data) {
       const newTrack = await TrackingController.getTrack(number);
-      const {
-        Number,
-        ScheduledDeliveryDate,
-        ActualDeliveryDate,
-        TrackingUpdateDate,
-        DateCreated,
-        StatusCode,
-        Status,
-        WarehouseRecipient,
-        WarehouseSender,
-        WarehouseRecipientAddress,
-        WarehouseSenderAddress,
-      } = newTrack;
 
-      data = await TrackingController.addTrack({
-        Number,
-        ScheduledDeliveryDate,
-        ActualDeliveryDate,
-        TrackingUpdateDate,
-        DateCreated,
-        StatusCode,
-        Status,
-        WarehouseRecipient,
-        WarehouseSender,
-        WarehouseRecipientAddress,
-        WarehouseSenderAddress,
-      });
+      if (newTrack.success) {
+        const {
+          Number,
+          ScheduledDeliveryDate,
+          ActualDeliveryDate,
+          TrackingUpdateDate,
+          DateCreated,
+          StatusCode,
+          Status,
+          WarehouseRecipient,
+          WarehouseSender,
+          WarehouseRecipientAddress,
+          WarehouseSenderAddress,
+        } = newTrack.data[0];
+
+        data = await TrackingController.addTrack({
+          Number,
+          ScheduledDeliveryDate,
+          ActualDeliveryDate,
+          TrackingUpdateDate,
+          DateCreated,
+          StatusCode,
+          Status,
+          WarehouseRecipient,
+          WarehouseSender,
+          WarehouseRecipientAddress,
+          WarehouseSenderAddress,
+        });
+      }
     }
 
     res.status(200).json({

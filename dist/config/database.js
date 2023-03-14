@@ -42,7 +42,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv/config");
 var mongoose_1 = __importDefault(require("mongoose"));
 var MONGO_URI = process.env.MONGO_URI;
-console.log("mongouri", MONGO_URI);
 function connectDB() {
     return __awaiter(this, void 0, void 0, function () {
         var _a, err_1;
