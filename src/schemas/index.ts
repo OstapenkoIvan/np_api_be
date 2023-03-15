@@ -1,1 +1,6 @@
-export { trackSchema, TrackSchema } from "./tnn.schema";
+export {
+  trackSchema,
+  warehouseSchema,
+  TrackSchema,
+  WarehouseSchema,
+} from "./tnn.schema";

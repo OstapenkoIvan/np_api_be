@@ -51,68 +51,32 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TrackingController = void 0;
+exports.WarehouseController = void 0;
 require("dotenv/config");
 var helpers_1 = require("../helpers");
 var services_1 = require("../services");
-var TrackingController = /** @class */ (function (_super) {
-    __extends(TrackingController, _super);
-    function TrackingController() {
+var WarehouseController = /** @class */ (function (_super) {
+    __extends(WarehouseController, _super);
+    function WarehouseController() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    TrackingController.prototype.getTrackController = function (req, res) {
+    WarehouseController.prototype.getSelectedWhController = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var data, number, newTrack, _a, Number_1, ScheduledDeliveryDate, ActualDeliveryDate, TrackingUpdateDate, DateCreated, StatusCode, Status, WarehouseRecipient, WarehouseSender, WarehouseRecipientAddress, WarehouseSenderAddress;
+            var _a, queryData, page, data;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        data = req.track;
-                        number = req.body.number;
-                        if (!!data) return [3 /*break*/, 3];
-                        return [4 /*yield*/, TrackingController.getTrack(number)];
-                    case 1:
-                        newTrack = _b.sent();
-                        if (!newTrack.success) return [3 /*break*/, 3];
-                        _a = newTrack.data[0], Number_1 = _a.Number, ScheduledDeliveryDate = _a.ScheduledDeliveryDate, ActualDeliveryDate = _a.ActualDeliveryDate, TrackingUpdateDate = _a.TrackingUpdateDate, DateCreated = _a.DateCreated, StatusCode = _a.StatusCode, Status = _a.Status, WarehouseRecipient = _a.WarehouseRecipient, WarehouseSender = _a.WarehouseSender, WarehouseRecipientAddress = _a.WarehouseRecipientAddress, WarehouseSenderAddress = _a.WarehouseSenderAddress;
-                        return [4 /*yield*/, TrackingController.addTrack({
-                                Number: Number_1,
-                                ScheduledDeliveryDate: ScheduledDeliveryDate,
-                                ActualDeliveryDate: ActualDeliveryDate,
-                                TrackingUpdateDate: TrackingUpdateDate,
-                                DateCreated: DateCreated,
-                                StatusCode: StatusCode,
-                                Status: Status,
-                                WarehouseRecipient: WarehouseRecipient,
-                                WarehouseSender: WarehouseSender,
-                                WarehouseRecipientAddress: WarehouseRecipientAddress,
-                                WarehouseSenderAddress: WarehouseSenderAddress,
+                        _a = req.body, queryData = _a.queryData, page = _a.page;
+                        return [4 /*yield*/, WarehouseController.getSelectedWarehouses({
+                                queryData: queryData,
+                                page: page,
                             })];
-                    case 2:
-                        data = _b.sent();
-                        _b.label = 3;
-                    case 3:
-                        res.status(200).json({
-                            status: "success",
-                            code: 200,
-                            data: data,
-                        });
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    TrackingController.prototype.getAllTracksController = function (req, res) {
-        return __awaiter(this, void 0, void 0, function () {
-            var data;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, TrackingController.getAllTracks()];
                     case 1:
-                        data = _a.sent();
+                        data = _b.sent();
                         if (!data) {
-                            throw TrackingController.helpers.errorHandler({
+                            throw WarehouseController.helpers.errorHandler({
                                 status: 501,
-                                message: "Something went wrong with getting tracks",
+                                message: "Something went wrong when getting warehouses",
                             });
                         }
                         res.status(200).json({
@@ -125,10 +89,10 @@ var TrackingController = /** @class */ (function (_super) {
             });
         });
     };
-    TrackingController.helpers = helpers_1.helpers;
-    return TrackingController;
-}(services_1.TrackingService));
-exports.TrackingController = TrackingController;
-var trackingController = new TrackingController();
-exports.default = trackingController;
-//# sourceMappingURL=tracking.controller.js.map
+    WarehouseController.helpers = helpers_1.helpers;
+    return WarehouseController;
+}(services_1.WarehouseService));
+exports.WarehouseController = WarehouseController;
+var warehouseController = new WarehouseController();
+exports.default = warehouseController;
+//# sourceMappingURL=warehouse.controller.js.map

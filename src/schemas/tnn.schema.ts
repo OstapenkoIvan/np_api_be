@@ -10,4 +10,12 @@ export class TrackSchema {
   });
 }
 
+export class WarehouseSchema {
+  warehouseInputSchema = Joi.object({
+    queryData: Joi.string(),
+    page: Joi.number().required().messages({ message: "Page is required" }),
+  });
+}
+
 export const trackSchema = new TrackSchema();
+export const warehouseSchema = new WarehouseSchema();

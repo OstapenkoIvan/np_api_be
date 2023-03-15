@@ -1,14 +1,14 @@
 import { Application, ErrorRequestHandler, RequestHandler } from "express";
 
-import TrackRoutes from "./api/tracking.routes";
-// import WarehouseRoutes from "./api/warehouse.routes";
+import TrackingRoutes from "./api/tracking.routes";
+import WarehouseRoutes from "./api/warehouse.routes";
 
 class AppRouter {
   constructor(private app: Application) {}
 
   init() {
-    this.app.use("/api/tracking", new TrackRoutes().router);
-    // this.app.use("/api/warehouses", new WarehouseRoutes().router);
+    this.app.use("/api/tracking", new TrackingRoutes().router);
+    this.app.use("/api/warehouses", new WarehouseRoutes().router);
 
     this.app.use(((req, res) => {
       res.status(404).send({

@@ -60,8 +60,6 @@ var Helpers = /** @class */ (function () {
                         return [3 /*break*/, 3];
                     case 2:
                         error_1 = _a.sent();
-                        // eslint-disable-next-line no-console
-                        console.log("ControllerHandler Error", error_1);
                         next(error_1);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
@@ -74,5 +72,4 @@ var Helpers = /** @class */ (function () {
 }());
 exports.Helpers = Helpers;
 exports.helpers = new Helpers();
-// TODO add wrapper here
 //# sourceMappingURL=index.js.map

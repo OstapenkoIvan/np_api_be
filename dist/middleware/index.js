@@ -40,9 +40,31 @@ exports.Middlewares = void 0;
 require("dotenv/config");
 var helpers_1 = require("../helpers");
 var models_1 = require("../models");
+var services_1 = require("./../services");
 var Middlewares = /** @class */ (function () {
     function Middlewares() {
     }
+    Middlewares.prototype.ifCollectionEmpty = function (req, res, next) {
+        return __awaiter(this, void 0, void 0, function () {
+            var count;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, services_1.WarehouseService.countItems()];
+                    case 1:
+                        count = _a.sent();
+                        console.log("middle count", count);
+                        if (!!count) return [3 /*break*/, 3];
+                        return [4 /*yield*/, services_1.WarehouseService.getAllWarehouses()];
+                    case 2:
+                        _a.sent();
+                        _a.label = 3;
+                    case 3:
+                        next();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     Middlewares.prototype.checkExisting = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
             var number, track;

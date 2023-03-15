@@ -31,3 +31,12 @@ export interface IWarehouseList {
 export interface ITrackNumber {
   number: number;
 }
+
+export interface IAxiosWhReturn extends IWarehouse {
+  [key: string]: string | number | boolean;
+}
+
+export interface IWarehouseInputs {
+  queryData: number;
+  page: number;
+}

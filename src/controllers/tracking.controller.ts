@@ -57,6 +57,13 @@ export class TrackingController extends TrackingService {
   async getAllTracksController(req: Request, res: Response) {
     const data = await TrackingController.getAllTracks();
 
+    if (!data) {
+      throw TrackingController.helpers.errorHandler({
+        status: 501,
+        message: "Something went wrong with getting tracks",
+      });
+    }
+
     res.status(200).json({
       status: "success",
       code: 200,
