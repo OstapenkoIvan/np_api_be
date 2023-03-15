@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production node ./dist/server.js",
-    "start:dev": "cross-env NODE_ENV=development nodemon ./dist/server.js",
-    "build": "npx tsc",
+    "start": "cross-env NODE_ENV=production node ./dist/index.js",
+    "start:dev": "cross-env NODE_ENV=development nodemon ./dist/index.js",
+    "build": "tsc",
     "watch": "tsc -w",
     "lint": "eslint **/*.js",
     "lint:fix": "eslint --fix **/*.js",
