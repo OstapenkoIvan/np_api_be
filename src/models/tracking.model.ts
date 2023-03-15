@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { ITrack, ITrackList } from "../types";
+import { ITrack } from "../types";
 
 const trackSchema = new Schema<ITrack>(
   {

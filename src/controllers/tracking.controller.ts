@@ -1,9 +1,8 @@
 import "dotenv/config";
 import { Request, Response } from "express";
 
-import { ITrack } from "../types";
 import { helpers, Helpers } from "../helpers";
-import { trackingService, TrackingService } from "../services";
+import { TrackingService } from "../services";
 
 export class TrackingController extends TrackingService {
   private static helpers: Helpers = helpers;

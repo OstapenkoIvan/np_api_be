@@ -75,7 +75,6 @@ var WarehouseService = /** @class */ (function () {
                         return [4 /*yield*/, axios_1.default.post(NP_URI, body)];
                     case 1:
                         data = (_a.sent()).data;
-                        console.log("all wh service", data);
                         filterdWarehouses = data.data.map(function (_a) {
                             var Number = _a.Number, Description = _a.Description, ShortAddress = _a.ShortAddress, CityDescription = _a.CityDescription, SettlementAreaDescription = _a.SettlementAreaDescription;
                             return ({
@@ -86,7 +85,6 @@ var WarehouseService = /** @class */ (function () {
                                 SettlementAreaDescription: SettlementAreaDescription,
                             });
                         });
-                        console.log("wh service filterdWarehouses", filterdWarehouses);
                         return [4 /*yield*/, models_1.Warehose.insertMany(filterdWarehouses, {
                                 lean: true,
                             })];
