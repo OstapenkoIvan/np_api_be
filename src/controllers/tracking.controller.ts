@@ -43,6 +43,8 @@ export class TrackingController extends TrackingService {
           WarehouseRecipientAddress,
           WarehouseSenderAddress,
         });
+      } else {
+        data = { Status: newTrack.warnings[0] };
       }
     }
 
