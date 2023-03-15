@@ -31,6 +31,7 @@ export default class WarehouseRoutes {
     this.router.post(
       "/",
       this.middleware.validate(this.warehouseSchema.warehouseInputSchema),
+      this.helpers.controllerWrapper(this.middleware.ifCollectionEmpty),
       this.helpers.controllerWrapper(this.controller.getSelectedWhController)
     );
   }

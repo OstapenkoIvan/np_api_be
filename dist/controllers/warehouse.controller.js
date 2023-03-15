@@ -62,11 +62,12 @@ var WarehouseController = /** @class */ (function (_super) {
     }
     WarehouseController.prototype.getSelectedWhController = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, queryData, page, data;
+            var _a, queryData, page, count, data;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         _a = req.body, queryData = _a.queryData, page = _a.page;
+                        count = req.count;
                         return [4 /*yield*/, WarehouseController.getSelectedWarehouses({
                                 queryData: queryData,
                                 page: page,
@@ -82,6 +83,7 @@ var WarehouseController = /** @class */ (function (_super) {
                         res.status(200).json({
                             status: "success",
                             code: 200,
+                            total: count,
                             data: data,
                         });
                         return [2 /*return*/];

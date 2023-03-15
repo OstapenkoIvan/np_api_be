@@ -10,6 +10,7 @@ export class WarehouseController extends WarehouseService {
 
   async getSelectedWhController(req: Request, res: Response) {
     const { queryData, page }: IWarehouseInputs = req.body;
+    const count = req.count;
 
     const data = await WarehouseController.getSelectedWarehouses({
       queryData,
@@ -26,6 +27,7 @@ export class WarehouseController extends WarehouseService {
     res.status(200).json({
       status: "success",
       code: 200,
+      total: count,
       data,
     });
   }

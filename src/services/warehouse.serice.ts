@@ -49,7 +49,7 @@ export class WarehouseService {
   }
 
   static async getSelectedWarehouses({
-    queryData,
+    queryData = "",
     page = 1,
   }: IWarehouseInputs) {
     const limit = 10;

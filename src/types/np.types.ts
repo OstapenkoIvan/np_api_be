@@ -37,6 +37,6 @@ export interface IAxiosWhReturn extends IWarehouse {
 }
 
 export interface IWarehouseInputs {
-  queryData: number;
+  queryData: string;
   page: number;
 }

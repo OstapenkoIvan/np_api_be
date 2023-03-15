@@ -19,7 +19,7 @@ var WarehouseRoutes = /** @class */ (function () {
     }
     WarehouseRoutes.prototype.registerRoutes = function () {
         this.router.get("/", this.helpers.controllerWrapper(this.middleware.ifCollectionEmpty), this.helpers.controllerWrapper(this.controller.getSelectedWhController));
-        this.router.post("/", this.middleware.validate(this.warehouseSchema.warehouseInputSchema), this.helpers.controllerWrapper(this.controller.getSelectedWhController));
+        this.router.post("/", this.middleware.validate(this.warehouseSchema.warehouseInputSchema), this.helpers.controllerWrapper(this.middleware.ifCollectionEmpty), this.helpers.controllerWrapper(this.controller.getSelectedWhController));
     };
     return WarehouseRoutes;
 }());

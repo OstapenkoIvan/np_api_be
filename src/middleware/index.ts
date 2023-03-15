@@ -3,20 +3,21 @@ import { Request, Response, NextFunction, RequestHandler } from "express";
 import Joi from "joi";
 
 import { helpers, Helpers } from "../helpers";
-import { Track, Warehose } from "../models";
-import { ITrackNumber, ITrack, IWarehouseInputs } from "../types";
-import { WarehouseService, warehouseService } from "./../services";
+import { Track } from "../models";
+import { ITrackNumber, ITrack } from "../types";
+import { WarehouseService } from "./../services";
 
 export class Middlewares {
   private static helpers: Helpers = helpers;
 
   async ifCollectionEmpty(req: Request, res: Response, next: NextFunction) {
     const count = await WarehouseService.countItems();
-    console.log("middle count", count);
 
     if (!count) {
       await WarehouseService.getAllWarehouses();
     }
+
+    req.count = count;
 
     next();
   }

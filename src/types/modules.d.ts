@@ -12,6 +12,7 @@ declare global {
   namespace Express {
     export interface Request {
       track?: ITrack;
+      count?: number;
     }
   }
 }

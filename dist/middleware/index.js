@@ -52,13 +52,13 @@ var Middlewares = /** @class */ (function () {
                     case 0: return [4 /*yield*/, services_1.WarehouseService.countItems()];
                     case 1:
                         count = _a.sent();
-                        console.log("middle count", count);
                         if (!!count) return [3 /*break*/, 3];
                         return [4 /*yield*/, services_1.WarehouseService.getAllWarehouses()];
                     case 2:
                         _a.sent();
                         _a.label = 3;
                     case 3:
+                        req.count = count;
                         next();
                         return [2 /*return*/];
                 }

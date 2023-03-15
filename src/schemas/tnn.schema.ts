@@ -12,7 +12,7 @@ export class TrackSchema {
 
 export class WarehouseSchema {
   warehouseInputSchema = Joi.object({
-    queryData: Joi.string(),
+    queryData: Joi.string().allow(""),
     page: Joi.number().required().messages({ message: "Page is required" }),
   });
 }

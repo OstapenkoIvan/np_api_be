@@ -98,11 +98,11 @@ var WarehouseService = /** @class */ (function () {
         });
     };
     WarehouseService.getSelectedWarehouses = function (_a) {
-        var queryData = _a.queryData, _b = _a.page, page = _b === void 0 ? 1 : _b;
+        var _b = _a.queryData, queryData = _b === void 0 ? "" : _b, _c = _a.page, page = _c === void 0 ? 1 : _c;
         return __awaiter(this, void 0, void 0, function () {
             var limit, skip, input, selectedWarehouses;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
                         limit = 10;
                         skip = (Number(page) - 1) * Number(limit);
@@ -113,7 +113,7 @@ var WarehouseService = /** @class */ (function () {
                                 .limit(limit)
                                 .skip(skip)];
                     case 1:
-                        selectedWarehouses = _c.sent();
+                        selectedWarehouses = _d.sent();
                         return [2 /*return*/, selectedWarehouses];
                 }
             });

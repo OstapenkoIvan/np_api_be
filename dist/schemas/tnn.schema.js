@@ -21,7 +21,7 @@ exports.TrackSchema = TrackSchema;
 var WarehouseSchema = /** @class */ (function () {
     function WarehouseSchema() {
         this.warehouseInputSchema = joi_1.default.object({
-            queryData: joi_1.default.string(),
+            queryData: joi_1.default.string().allow(""),
             page: joi_1.default.number().required().messages({ message: "Page is required" }),
         });
     }
