@@ -68,10 +68,12 @@ var TrackingController = /** @class */ (function (_super) {
                     case 0:
                         data = req.track;
                         number = req.body.number;
-                        if (!!data) return [3 /*break*/, 3];
+                        console.log("inside ccontroller number", number);
+                        if (!!data) return [3 /*break*/, 4];
                         return [4 /*yield*/, TrackingController.getTrack(number)];
                     case 1:
                         newTrack = _b.sent();
+                        console.log("inside ccontroller newTrack", newTrack);
                         if (!newTrack.success) return [3 /*break*/, 3];
                         _a = newTrack.data[0], Number_1 = _a.Number, ScheduledDeliveryDate = _a.ScheduledDeliveryDate, ActualDeliveryDate = _a.ActualDeliveryDate, TrackingUpdateDate = _a.TrackingUpdateDate, DateCreated = _a.DateCreated, StatusCode = _a.StatusCode, Status = _a.Status, WarehouseRecipient = _a.WarehouseRecipient, WarehouseSender = _a.WarehouseSender, WarehouseRecipientAddress = _a.WarehouseRecipientAddress, WarehouseSenderAddress = _a.WarehouseSenderAddress;
                         return [4 /*yield*/, TrackingController.addTrack({
@@ -89,8 +91,11 @@ var TrackingController = /** @class */ (function (_super) {
                             })];
                     case 2:
                         data = _b.sent();
-                        _b.label = 3;
+                        return [3 /*break*/, 4];
                     case 3:
+                        data = { Status: newTrack.warnings[0] };
+                        _b.label = 4;
+                    case 4:
                         res.status(200).json({
                             status: "success",
                             code: 200,

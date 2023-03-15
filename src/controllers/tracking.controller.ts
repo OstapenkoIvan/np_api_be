@@ -11,10 +11,10 @@ export class TrackingController extends TrackingService {
     let data;
     data = req.track;
     const { number }: { number: string } = req.body;
-
+    console.log("inside ccontroller number", number);
     if (!data) {
       const newTrack = await TrackingController.getTrack(number);
-
+      console.log("inside ccontroller newTrack", newTrack);
       if (newTrack.success) {
         const {
           Number,
@@ -43,6 +43,8 @@ export class TrackingController extends TrackingService {
           WarehouseRecipientAddress,
           WarehouseSenderAddress,
         });
+      } else {
+        data = { Status: newTrack.warnings[0] };
       }
     }
 
