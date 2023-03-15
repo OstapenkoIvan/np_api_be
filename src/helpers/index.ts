@@ -15,8 +15,6 @@ export class Helpers {
       try {
         await controller(req, res, next);
       } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log("ControllerHandler Error", error);
         next(error);
       }
     };
@@ -25,5 +23,3 @@ export class Helpers {
 }
 
 export const helpers = new Helpers();
-
-// TODO add wrapper here

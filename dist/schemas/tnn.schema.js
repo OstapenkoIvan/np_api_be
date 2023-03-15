@@ -3,19 +3,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.todoSchema = exports.TodoSchema = void 0;
+exports.warehouseSchema = exports.trackSchema = exports.WarehouseSchema = exports.TrackSchema = void 0;
 var joi_1 = __importDefault(require("joi"));
-var TodoSchema = /** @class */ (function () {
-    function TodoSchema() {
-        this.editColumnSchema = joi_1.default.object({
-            desc: joi_1.default.string()
+var TrackSchema = /** @class */ (function () {
+    function TrackSchema() {
+        this.trackNumberSchema = joi_1.default.object({
+            number: joi_1.default.string()
+                .length(14)
+                .pattern(/[0-9]+/i)
                 .required()
-                .messages({ message: "Description is required" }),
+                .messages({ message: "Number is required" }),
         });
     }
-    return TodoSchema;
+    return TrackSchema;
 }());
-exports.TodoSchema = TodoSchema;
-exports.todoSchema = new TodoSchema();
-// TODO add schema here
+exports.TrackSchema = TrackSchema;
+var WarehouseSchema = /** @class */ (function () {
+    function WarehouseSchema() {
+        this.warehouseInputSchema = joi_1.default.object({
+            queryData: joi_1.default.string().allow(""),
+            page: joi_1.default.number().required().messages({ message: "Page is required" }),
+        });
+    }
+    return WarehouseSchema;
+}());
+exports.WarehouseSchema = WarehouseSchema;
+exports.trackSchema = new TrackSchema();
+exports.warehouseSchema = new WarehouseSchema();
 //# sourceMappingURL=tnn.schema.js.map

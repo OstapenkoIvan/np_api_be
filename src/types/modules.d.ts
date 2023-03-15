@@ -1,10 +1,18 @@
+import { ITrack } from "./np.types";
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
       MONGO_URI: string;
       MONGO_URI_TST: string;
+      NP_URI: string;
       PORT: string;
       HOST: string;
+    }
+  }
+  namespace Express {
+    export interface Request {
+      track?: ITrack;
+      count?: number;
     }
   }
 }

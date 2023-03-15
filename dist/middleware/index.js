@@ -35,113 +35,56 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Middlewares = void 0;
 require("dotenv/config");
-var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-var mongoose_1 = require("mongoose");
 var helpers_1 = require("../helpers");
 var models_1 = require("../models");
-var JWT_SECRET = process.env.JWT_SECRET;
+var services_1 = require("./../services");
 var Middlewares = /** @class */ (function () {
     function Middlewares() {
     }
-    Middlewares.prototype.authorize = function (req, res, next) {
+    Middlewares.prototype.ifCollectionEmpty = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
-            var authorization, _a, bearer, token, id, user;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        authorization = req.headers.authorization;
-                        if (!authorization) {
-                            throw Middlewares.helpers.errorHandler({
-                                status: 401,
-                                message: "No token provided",
-                            });
-                        }
-                        _a = authorization.split(" "), bearer = _a[0], token = _a[1];
-                        if (bearer !== "Bearer") {
-                            throw Middlewares.helpers.errorHandler({
-                                status: 401,
-                                message: "Not authorized",
-                            });
-                        }
-                        id = jsonwebtoken_1.default.verify(token, JWT_SECRET).id;
-                        return [4 /*yield*/, models_1.User.findById(id)];
+            var count;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, services_1.WarehouseService.countItems()];
                     case 1:
-                        user = (_b.sent());
-                        if (!id || !user || user.token !== token) {
-                            throw Middlewares.helpers.errorHandler({
-                                status: 401,
-                                message: "Not authorized",
-                            });
-                        }
-                        req.user = user;
+                        count = _a.sent();
+                        if (!!count) return [3 /*break*/, 3];
+                        return [4 /*yield*/, services_1.WarehouseService.getAllWarehouses()];
+                    case 2:
+                        _a.sent();
+                        _a.label = 3;
+                    case 3:
+                        req.count = count;
                         next();
                         return [2 /*return*/];
                 }
             });
         });
     };
-    Middlewares.prototype.validNewUser = function () {
-        var _this = this;
-        var func = function (req, res, next) { return __awaiter(_this, void 0, void 0, function () {
-            var _a, name, email, user;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = req.body, name = _a.name, email = _a.email;
-                        return [4 /*yield*/, models_1.User.findOne({ $or: [{ email: email }, { name: name }] })];
-                    case 1:
-                        user = _b.sent();
-                        if (user) {
-                            throw Middlewares.helpers.errorHandler({
-                                status: 409,
-                                message: "User already exist",
-                            });
-                        }
-                        next();
-                        return [2 /*return*/];
-                }
-            });
-        }); };
-        return func;
-    };
-    Middlewares.prototype.validExistUser = function () {
-        var _this = this;
-        var func = function (req, res, next) { return __awaiter(_this, void 0, void 0, function () {
-            var data, emailReg, user;
+    Middlewares.prototype.checkExisting = function (req, res, next) {
+        return __awaiter(this, void 0, void 0, function () {
+            var number, track;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        data = req.body.data;
-                        emailReg = /\S+@\S+\.\S+/;
-                        if (!emailReg.test(data)) return [3 /*break*/, 2];
-                        return [4 /*yield*/, models_1.User.findOne({ email: data })];
+                        number = req.body.number;
+                        return [4 /*yield*/, models_1.Track.findOne({
+                                Number: number,
+                            })];
                     case 1:
-                        user = _a.sent();
-                        return [3 /*break*/, 4];
-                    case 2: return [4 /*yield*/, models_1.User.findOne({ name: data })];
-                    case 3:
-                        user = _a.sent();
-                        _a.label = 4;
-                    case 4:
-                        if (!user) {
-                            throw Middlewares.helpers.errorHandler({
-                                status: 401,
-                                message: "Email or password is wrong",
-                            });
+                        track = _a.sent();
+                        if (track) {
+                            req.track = track;
                         }
-                        req.user = user;
                         next();
                         return [2 /*return*/];
                 }
             });
-        }); };
-        return func;
+        });
     };
     Middlewares.prototype.validate = function (schema) {
         var func = function (req, res, next) {
@@ -155,29 +98,10 @@ var Middlewares = /** @class */ (function () {
         };
         return func;
     };
-    Middlewares.prototype.validateId = function () {
-        var func = function (req, res, next) {
-            if (req.params.columnId && !(0, mongoose_1.isValidObjectId)(req.params.columnId)) {
-                throw Middlewares.helpers.errorHandler({
-                    status: 422,
-                    message: "Not valid Id, please provide correct contact id",
-                });
-            }
-            if (req.params.todoId && !(0, mongoose_1.isValidObjectId)(req.params.todoId)) {
-                throw Middlewares.helpers.errorHandler({
-                    status: 422,
-                    message: "Not valid Id, please provide correct contact id",
-                });
-            }
-            next();
-        };
-        return func;
-    };
     Middlewares.helpers = helpers_1.helpers;
     return Middlewares;
 }());
 exports.Middlewares = Middlewares;
 var middlewares = new Middlewares();
 exports.default = middlewares;
-// TODO add tnn validation middleware
 //# sourceMappingURL=index.js.map

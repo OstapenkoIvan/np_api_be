@@ -6,23 +6,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv/config");
 var express_1 = __importDefault(require("express"));
 var cors_1 = __importDefault(require("cors"));
-// import AppRouter from "./routes";
+var routes_1 = __importDefault(require("./routes"));
 var database_1 = __importDefault(require("./config/database"));
 var PORT = process.env.PORT;
-console.log("port", PORT);
 var app = (0, express_1.default)();
-// const router = new AppRouter(app);
-// connectDB();
-app.set("port", PORT || 3000);
+var router = new routes_1.default(app);
+(0, database_1.default)();
+app.set("port", PORT || 4200);
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: false }));
-// router.init();
+router.init();
 var port = app.get("port");
 // eslint-disable-next-line no-console
 var server = app.listen(port, function () {
-    (0, database_1.default)();
-    console.log("Server started on port ".concat(port));
+    return console.log("Server started on port ".concat(port));
 });
 exports.default = server;
 //# sourceMappingURL=server.js.map
