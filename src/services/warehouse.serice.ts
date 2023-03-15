@@ -22,7 +22,6 @@ export class WarehouseService {
     };
 
     const { data } = await axios.post(NP_URI, body);
-    console.log("all wh service", data);
 
     const filterdWarehouses = data.data.map(
       ({
@@ -39,7 +38,6 @@ export class WarehouseService {
         SettlementAreaDescription,
       })
     );
-    console.log("wh service filterdWarehouses", filterdWarehouses);
 
     await Warehose.insertMany(filterdWarehouses, {
       lean: true,
